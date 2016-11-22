@@ -1,0 +1,83 @@
+<?php
+
+namespace Panoscape\History;
+
+use Illuminate\Database\Eloquent\Model;
+
+class History extends Model
+{
+    /**
+    * Indicates if the model should be timestamped.
+    *
+    * @var bool
+    */
+    public $timestamps = false;
+
+    /**
+    * The attributes that should be mutated to dates.
+    *
+    * @var array
+    */
+    protected $dates = ['performed_at'];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'meta' => 'array'
+    ];
+
+    /**
+    * The attributes that are not mass assignable.
+    *
+    * @var array
+    */
+    protected $guarded = [];
+
+    /**
+    * The attributes that should be hidden for arrays.
+    *
+    * @var array
+    */
+    protected $hidden = [];
+
+    /**
+     * Create a new Eloquent model instance.
+     *
+     * @param  array  $attributes
+     * @return void
+     */
+    public function __construct(array $attributes = [])
+    {
+        $this->setTable(config('history.histories_table'));
+        parent::__construct($attributes);
+    }
+
+    /**
+     * Get the user of this record
+     */
+    public function user()
+    {
+        return $this->morphTo();
+    }
+
+    /**
+     * Returns whether or not a user type/id are present.
+     *
+     * @return bool
+     */
+    public function hasUser()
+    {
+        return !empty($this->agent_type) && !empty($this->agent_id);
+    }
+
+    /**
+     * Get the model of this record
+     */
+    public function model()
+    {
+        return $this->morphTo();
+    }
+}
