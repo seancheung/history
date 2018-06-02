@@ -97,12 +97,12 @@ class HistoryObserver
 
     public static function getUserID()
     {
-        return auth()->check() ? get_class(auth()->user()) : null;
+        return auth()->check() ? auth()->user()->id : null;
     }
 
     public static function getUserType()
     {
-        return auth()->check() ? auth()->user()->id : null;
+        return auth()->check() ? get_class(auth()->user()) : null;
     }
 
     public static function filter($action)
