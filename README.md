@@ -111,7 +111,7 @@ $user->operations;
 
 ### Additional query conditions
 
-Both of `histories` and `operations` return Eloquent relationships which also serve as query builders. You can add further constraints by chaining conditions:
+Both `histories` and `operations` return Eloquent relationships which also serve as query builders. You can add further constraints by chaining conditions:
 
 ```php
 // get the lastest 10 records
