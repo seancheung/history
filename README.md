@@ -109,6 +109,19 @@ $user->operations();
 $user->operations;
 ```
 
+### Additional query conditions
+
+Both of `histories` and `operations` return Eloquent relationships which also serve as query builders. You can add further constraints by chaining conditions:
+
+```php
+// get the lastest 10 records
+$model->histories()->orderBy('performed_at', 'desc')->take(10)
+
+// filter by user id
+$model->histories()->where('user_id', 10010)
+```
+
+
 ### History
 
 ```php
@@ -125,7 +138,7 @@ $history->hasUser();
 //get the message
 $history->message;
 
-//get the meta(only available when it's a updating operation)
+//get the meta(only available when it's an updating operation)
 //the meta will be an array with the properties changing information
 $history->meta;
 
@@ -151,7 +164,7 @@ A sample meta
 
 ### Custom History
 
-Beyond the built in `created/updating/deleting/restoring` events, you may store custom history record with `ModelChanged` event.
+Besides the built in `created/updating/deleting/restoring` events, you may store custom history record with `ModelChanged` event.
 
 ```php
 use Panoscape\History\Events\ModelChanged;
