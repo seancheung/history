@@ -109,6 +109,16 @@ $user->operations();
 $user->operations;
 ```
 
+### Additional query conditions
+
+Both of `histories` and `operations` return Eloquent relationships which also serve as query builders. You can add further constraints by chaining conditions:
+
+```php
+$model->histories()->orderBy('performed_at', 'desc')->take(10)
+```
+The above example takes the latest 10 records.
+
+
 ### History
 
 ```php
