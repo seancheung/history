@@ -35,11 +35,26 @@ return [
 
     /*
     |--------------------------------------------------------------
+    | Attributes blacklist
+    |--------------------------------------------------------------
+    | 
+    | Please add the whole class names. Example: \App\User:class
+    | For each model, attributes in its respect array will NOT be recorded into meta when performing update operation.
+    |
+    */
+    'attributes_blacklist' => [
+        // \App\User::class => [
+        //     'password'
+        // ],
+    ],
+
+    /*
+    |--------------------------------------------------------------
     | User blacklist
     |--------------------------------------------------------------
     |
     | Operations performed by users in this array will NOT be recorded.
-    | Please add the whole class names. Example: \App\User
+    | Please add the whole class names. Example: \App\User:class
     | Use 'nobody' to bypass unauthenticated operations
     |
     */
