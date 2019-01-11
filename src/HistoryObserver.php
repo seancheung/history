@@ -36,6 +36,11 @@ class HistoryObserver
         * Gets the model's altered values and tracks what had changed
         */
         $changes = $model->getDirty();
+        /**
+         * Bypass restoring event
+         */
+        if(array_key_exists('deleted_at', $changes)) return;
+        
         $changed = [];
         foreach ($changes as $key => $value) {
             if(static::isIgnored($model, $key)) continue;
@@ -111,7 +116,7 @@ class HistoryObserver
     {
         $blacklist = config('history.attributes_blacklist');
         $name = get_class($model);
-        $array = $blacklist[$name];
+        $array = isset($blacklist[$name])? $blacklist[$name]: null;
         return !empty($array) && in_array($key, $array);
     }
 

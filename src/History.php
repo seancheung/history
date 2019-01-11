@@ -56,11 +56,11 @@ class History extends Model
     }
 
     /**
-     * Get the user of this record
+     * Get the user who performed this record
      */
     public function user()
     {
-        return $this->morphTo();
+        return $this->hasUser()? $this->morphTo()->first(): null;
     }
 
     /**
@@ -70,7 +70,7 @@ class History extends Model
      */
     public function hasUser()
     {
-        return !empty($this->agent_type) && !empty($this->agent_id);
+        return !empty($this->user_type) && !empty($this->user_id);
     }
 
     /**
@@ -78,6 +78,6 @@ class History extends Model
      */
     public function model()
     {
-        return $this->morphTo();
+        return $this->morphTo()->first();
     }
 }

@@ -1,4 +1,13 @@
+<p align="center">
+<a href="https://travis-ci.org/seancheung/history"><img src="https://travis-ci.org/seancheung/history.svg?branch=master" alt="Build Status"></a>
+<a href='https://coveralls.io/github/seancheung/history?branch=master'><img src='https://coveralls.io/repos/github/seancheung/history/badge.svg?branch=master' alt='Coverage Status' /></a>
+<a href="https://packagist.org/packages/panoscape/history"><img src="https://poser.pugx.org/panoscape/history/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/panoscape/history"><img src="https://poser.pugx.org/panoscape/history/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/panoscape/history"><img src="https://poser.pugx.org/panoscape/history/license.svg" alt="License"></a>
+</p>
+
 # History
+
 Eloquent model history tracking for Laravel
 
 ## Installation
@@ -121,7 +130,6 @@ $model->histories()->orderBy('performed_at', 'desc')->take(10)
 $model->histories()->where('user_id', 10010)
 ```
 
-
 ### History
 
 ```php
@@ -201,3 +209,35 @@ This will translate your model history into
 ### Filters
 
 You may set whitelist and blacklist in config file. Please follow the description guide in the published config file.
+
+### Known issues
+
+1. When updating a model, if its model label(attributes returned from `getModelLabel`) has been modified, the history message will use its new attributes, which might not be what you expect.
+
+```php
+class Article extends Model
+{
+    use HasHistories;
+
+    public function getModelLabel()
+    {
+        return $this->title;
+    }
+}
+// original title is 'my title'
+// modify title
+$article->title = 'new title';
+$article->save();
+// the updating history message
+// expect: Updating Article my title
+// actual: Updating Article new title
+```
+
+A workaround
+
+```php
+public function getModelLabel()
+{
+    return $this->getOriginal('title', $this->title);
+}
+```

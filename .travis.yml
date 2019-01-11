@@ -1,0 +1,20 @@
+language: php
+php:
+  - "7.3"
+  - "7.2"
+  - "7.1"
+# env:
+#   - PHPUNIT_VERSION=^7 TESTBENCH_VERSION=3.*
+# matrix:
+#   include:
+#     - php: 7.0
+#       env: PHPUNIT_VERSION=^6 TESTBENCH_VERSION=3.5.*
+# before_install:
+#   - composer require --dev "phpunit/phpunit:${PHPUNIT_VERSION}"
+#   - composer require --dev "orchestra/testbench:${TESTBENCH_VERSION}"
+install:
+  - composer install -n
+script:
+  - composer test:dist
+after_success:
+  - travis_retry composer test:coverage
