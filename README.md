@@ -8,7 +8,7 @@
 
 # History
 
-Eloquent model history tracking for Laravel
+Eloquent model history tracking for Laravel (NOW WITH AUTOLOAD!)
 
 ## Installation
 
@@ -16,28 +16,6 @@ Eloquent model history tracking for Laravel
 
 ```shell
 composer require panoscape/history
-```
-
-### Service provider
-
-> config/app.php
-
-```php
-'providers' => [
-    ...
-    Panoscape\History\HistoryServiceProvider::class,
-];
-```
-
-### History
-
-> config/app.php
-
-```php
-'aliases' => [
-    ...
-    'App\History' => Panoscape\History\History::class,
-];
 ```
 
 ### Migration
