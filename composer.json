@@ -5,7 +5,7 @@
     "homepage": "https://github.com/seancheung/history",
     "require": {
         "php": ">=5.6.4",
-        "illuminate/support": "^5.3"        
+        "illuminate/support": "^7.0"        
     },
     "license": "MIT",
     "authors": [
