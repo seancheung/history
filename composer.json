@@ -35,5 +35,12 @@
         "orchestra/testbench": "~3.7",
         "mockery/mockery": "^1.2",
         "php-coveralls/php-coveralls": "^2.1"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Panoscape\\History\\HistoryServiceProvider"
+            ]
+        }
     }
 }
