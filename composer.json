@@ -41,9 +41,9 @@
             "providers": [
                 "Panoscape\\History\\HistoryServiceProvider"
             ],
-            "aliases": [
+            "aliases": {
                 "History": "Panoscape\\History\\History"
-            ]
+            }
         }
     }
 }
