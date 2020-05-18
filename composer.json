@@ -40,6 +40,9 @@
         "laravel": {
             "providers": [
                 "Panoscape\\History\\HistoryServiceProvider"
+            ],
+            "aliases": [
+                "History": "Panoscape\\History\\History"
             ]
         }
     }
