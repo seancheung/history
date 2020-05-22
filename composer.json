@@ -5,7 +5,8 @@
     "homepage": "https://github.com/seancheung/history",
     "require": {
         "php": ">=5.6.4",
-        "illuminate/support": "^5.3"        
+        "illuminate/support": "^5.0|^6.0|^7.0",
+        "laravel/framework": "^7.0"     
     },
     "license": "MIT",
     "authors": [
@@ -34,5 +35,15 @@
         "orchestra/testbench": "~3.7",
         "mockery/mockery": "^1.2",
         "php-coveralls/php-coveralls": "^2.1"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Panoscape\\History\\HistoryServiceProvider"
+            ],
+            "aliases": {
+                "History": "Panoscape\\History\\History"
+            }
+        }
     }
 }

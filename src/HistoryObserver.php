@@ -2,6 +2,8 @@
 
 namespace Panoscape\History;
 
+use Illuminate\Support\Str;
+
 class HistoryObserver
 {
     /**
@@ -96,7 +98,7 @@ class HistoryObserver
     public static function getModelName($model)
     {
         $class = class_basename($model);
-        $key = 'panoscape::history.models.'.snake_case($class);
+        $key = 'panoscape::history.models.'.Str::snake($class);
         $value =  trans($key);
 
         return $key == $value ? $class : $value;
