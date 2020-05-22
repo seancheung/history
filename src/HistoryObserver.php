@@ -2,6 +2,14 @@
 
 namespace Panoscape\History;
 
+if(!function_exists('snake_case'))
+{
+    function snake_case($var)
+    {
+        return \Illuminate\Support\Str::snake($var);
+    }
+}
+
 class HistoryObserver
 {
     /**
