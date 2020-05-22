@@ -1,9 +1,10 @@
 <p align="center">
-<a href="https://travis-ci.org/seancheung/history"><img src="https://travis-ci.org/seancheung/history.svg?branch=master" alt="Build Status"></a>
+<a href="https://github.com/seancheung/history/actions"><img src="https://github.com/seancheung/history/workflows/Test/badge.svg" alt="Test Status"></a>
+<a href="https://travis-ci.org/seancheung/history"><img src="https://travis-ci.org/seancheung/history.svg?branch=master" alt="Test Status"></a>
 <a href='https://coveralls.io/github/seancheung/history?branch=master'><img src='https://coveralls.io/repos/github/seancheung/history/badge.svg?branch=master' alt='Coverage Status' /></a>
-<a href="https://packagist.org/packages/panoscape/history"><img src="https://poser.pugx.org/panoscape/history/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/panoscape/history"><img src="https://poser.pugx.org/panoscape/history/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/panoscape/history"><img src="https://poser.pugx.org/panoscape/history/license.svg" alt="License"></a>
+<a href="https://packagist.org/packages/panoscape/history"><img src="https://poser.pugx.org/panoscape/history/downloads" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/panoscape/history"><img src="https://poser.pugx.org/panoscape/history/v" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/panoscape/history"><img src="https://poser.pugx.org/panoscape/history/license" alt="License"></a>
 </p>
 
 # History
@@ -14,11 +15,37 @@ Eloquent model history tracking for Laravel (NOW WITH AUTOLOAD!)
 
 ### Composer
 
+Laravel 6.x, 7.x
+
 ```shell
 composer require panoscape/history
 ```
 
-> For Laravel 5.x use v1.x
+Laravel 5.6.x
+
+```shell
+composer require "panoscape/history:^1.0"
+```
+
+### Service provider and alias
+
+> Only required for version 1.x
+
+> NO NEED for version 2.0+ which is auto-loaded with [Package Discovery](https://laravel.com/docs/6.x/packages#package-discovery)
+
+
+*config/app.php*
+
+```php
+'providers' => [
+    ...
+    Panoscape\History\HistoryServiceProvider::class,
+];
+'aliases' => [
+    ...
+    'App\History' => Panoscape\History\History::class,
+];
+```
 
 ### Migration
 

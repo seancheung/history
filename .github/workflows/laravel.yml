@@ -1,0 +1,30 @@
+name: Test
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        laravel-versions: ["^6.0", "^7.0"]
+        php-versions: ["7.2", "7.3", "7.4"]
+    name: PHP ${{ matrix.php-versions }} with Laravel ${{ matrix.laravel-versions }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, dom, fileinfo
+      - name: Install Composer dependencies
+        run: |
+          composer require --dev --no-progress --no-suggest -n -o "laravel/framework:${{ matrix.laravel-versions }}"
+          composer install --no-progress --no-suggest -n -o
+      - name: Run test suite
+        run: composer test:dist
+      # - name: Run test coverage
+      #   run: composer test:coverage
