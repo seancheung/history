@@ -15,7 +15,7 @@ Eloquent model history tracking for Laravel (NOW WITH AUTOLOAD!)
 
 ### Composer
 
-Laravel 6.x, 7.x
+Laravel 6.x, 7.x, 8.x
 
 ```shell
 composer require panoscape/history
