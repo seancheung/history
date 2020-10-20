@@ -9,8 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        laravel-versions: ["^6.0", "^7.0"]
+        laravel-versions: ["^6.0", "^7.0", "^8.0"]
         php-versions: ["7.2", "7.3", "7.4"]
+        exclude:
+          - laravel-versions: "^8.0"
+            php-versions: "7.2"
     name: PHP ${{ matrix.php-versions }} with Laravel ${{ matrix.laravel-versions }}
     steps:
       - name: Checkout
