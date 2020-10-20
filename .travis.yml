@@ -7,6 +7,10 @@ env:
   - TESTBENCH_VERSION=^6.2
   - TESTBENCH_VERSION=^5.2
   - TESTBENCH_VERSION=^4.8
+jobs:
+  exclude:
+    - php: "7.2"
+      env: TESTBENCH_VERSION=^6.2
 before_install:
   - composer require --dev "orchestra/testbench:${TESTBENCH_VERSION}"
 install:
