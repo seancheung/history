@@ -3,6 +3,7 @@
 namespace Panoscape\History;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class HistoryObserver
 {
@@ -106,12 +107,12 @@ class HistoryObserver
 
     public static function getUserID()
     {
-        return auth()->check() ? auth()->user()->id : null;
+        return static::getAuth()->check() ? static::getAuth()->user()->id : null;
     }
 
     public static function getUserType()
     {
-        return auth()->check() ? get_class(auth()->user()) : null;
+        return static::getAuth()->check() ? get_class(static::getAuth()->user()) : null;
     }
 
     public static function isIgnored($model, $key)
@@ -124,16 +125,38 @@ class HistoryObserver
 
     public static function filter($action)
     {
-        if(!auth()->check()) {
+        if(!static::getAuth()->check()) {
             if(in_array('nobody', config('history.user_blacklist'))) {
                 return false;
             }
         }
-        elseif(in_array(get_class(auth()->user()), config('history.user_blacklist'))) {
+        elseif(in_array(get_class(static::getAuth()->user()), config('history.user_blacklist'))) {
             return false;
         }
 
         return is_null($action) || in_array($action, config('history.events_whitelist'));
+    }
+
+    private static function getAuth()
+    {
+        $guards = config('history.auth_guards');
+        if(is_bool($guards) && $guards == true)
+            return auth(static::activeGuard());
+        if(is_array($guards))
+        {
+            foreach($guards as $guard)
+                if(auth($guard)->check()) return auth($guard);
+        }
+        return auth();
+    }
+
+    private static function activeGuard()
+    {
+        foreach(array_keys(config('auth.guards')) as $guard)
+        {
+            if(auth($guard)->check()) return $guard;
+        }
+        return null;
     }
     
 }

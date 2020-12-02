@@ -93,5 +93,19 @@ return [
     'env_blacklist' => [
         
     ],
+
+    /*
+    |--------------------------------------------------------------
+    | Enable auth guards scan
+    |--------------------------------------------------------------
+    |
+    | You only need to enable this if your users are using non-default auth guards.
+    | In that case, all tracked user operations will be anonymous.
+    |
+    | - Set to `true` to use a full scan mode: all auth guards will be checked. However this does not ensure guard priority.
+    | - Set to an array to scan only specific auth guards(in the given order). e.g. `['web', 'api', 'admin']`
+    |
+    */
+    'auth_guards' => null,
     
 ];
