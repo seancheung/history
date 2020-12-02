@@ -144,7 +144,7 @@ $model->histories()->where('user_id', 10010)
 $history->model();
 
 //get the associated user
-//the user is the authorized user when the action is being performed
+//the user is the authenticated user when the action is being performed
 //it might be null if the history is performed unauthenticatedly
 $history->user();
 //check user existence
@@ -161,13 +161,13 @@ $history->meta;
 $history->performed_at;
 ```
 
-A sample message
+Example message
 
 ```
 Created Project my_project
 ```
 
-A sample meta
+Example meta
 
 ```php
 [
@@ -197,14 +197,33 @@ You may localize the model's type name.
 
 To do that, add the language line to the `models` array in the published language file, with the key being **the class's base name in snake case**.
 
-Sample
+Example language config
 
 ```php
+/*
+|--------------------------------------------------------------------------
+| Tracker Language Lines
+|--------------------------------------------------------------------------
+|
+| The following language lines are used across application for various
+| messages that we need to display to the user. You are free to modify
+| these language lines according to your application's requirements.
+|
+*/
+
+'created' => '创建:model :label',
+
+'updating' => '更新:model :label',
+
+'deleting' => '删除:model :label',
+
+'restored' => '恢复:model :label',
+
 //you may added your own model name language line here
-    'models' => [
-        'project' => '项目',
-        'component_template' => '组件模板',
-    ]
+'models' => [
+    'project' => '项目',
+    'component_template' => '组件模板',
+]
 ```
 
 This will translate your model history into
@@ -216,6 +235,61 @@ This will translate your model history into
 ### Filters
 
 You may set whitelist and blacklist in config file. Please follow the description guide in the published config file.
+
+```php
+/*
+|--------------------------------------------------------------
+| Events whitelist
+|--------------------------------------------------------------
+|
+| Events in this array will be recorded.
+| Available events are: created, updating, deleting, restored
+|
+*/
+'events_whitelist' => [
+    'created', 'updating', 'deleting', 'restored',
+],
+
+/*
+|--------------------------------------------------------------
+| Attributes blacklist
+|--------------------------------------------------------------
+| 
+| Please add the whole class names. Example: \App\User:class
+| For each model, attributes in its respect array will NOT be recorded into meta when performing update operation.
+|
+*/
+'attributes_blacklist' => [
+    // \App\User::class => [
+    //     'password'
+    // ],
+],
+
+/*
+|--------------------------------------------------------------
+| User blacklist
+|--------------------------------------------------------------
+|
+| Operations performed by users in this array will NOT be recorded.
+| Please add the whole class names. Example: \App\User:class
+| Use 'nobody' to bypass unauthenticated operations
+|
+*/
+'user_blacklist' => [
+    
+],
+/*
+|--------------------------------------------------------------
+| Enviroments blacklist
+|--------------------------------------------------------------
+|
+| When application's environment is in the list, tracker will be disabled
+|
+*/
+'env_blacklist' => [
+    
+],
+```
 
 ### Auth guards
 
