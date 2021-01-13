@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         laravel-versions: ["^6.0", "^7.0", "^8.0"]
-        php-versions: ["7.2", "7.3", "7.4"]
+        php-versions: ["7.2", "7.3", "7.4", "8.0"]
         exclude:
           - laravel-versions: "^8.0"
             php-versions: "7.2"
