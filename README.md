@@ -313,6 +313,25 @@ To fix this, you'll need to enable custom auth guards scanning in config file:
 'auth_guards' => null
 ```
 
+### Custom meta
+
+You can define your own method for meta data. By default for `updating` event meta consists of modified keys and for other events meta is `null`.
+
+Just redefine the method `getModelMeta` for the trait.
+
+Example:
+
+```php
+public function getModelMeta($event)
+{
+    // using defaults for updating
+    if($event == 'updating') return parent::getModelMeta($event);
+    // passing full model to meta
+    // ['key1' => 'value1', 'key2' => 'value2', ...]
+    else return $this;
+}
+```
+
 ### Known issues
 
 1. When updating a model, if its model label(attributes returned from `getModelLabel`) has been modified, the history message will use its new attributes, which might not be what you expect.
