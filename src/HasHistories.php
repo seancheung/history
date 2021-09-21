@@ -45,7 +45,6 @@ trait HasHistories
      */
     public function getModelMeta($event)
     {
-        l($this);
         switch($event)
         {
             case 'updating':
