@@ -14,11 +14,12 @@ class HistoryObserver
     * @return void
     */
     public function created($model)
-    {   
+    {
         if(!static::filter('created')) return;
 
         $model->morphMany(History::class, 'model')->create([
             'message' => trans('panoscape::history.created', ['model' => static::getModelName($model), 'label' => $model->getModelLabel()]),
+            'meta' => $model->getModelMeta('created'),
             'user_id' => static::getUserID(),
             'user_type' => static::getUserType(),
             'performed_at' => time(),
@@ -32,28 +33,12 @@ class HistoryObserver
     * @return void
     */
     public function updating($model)
-    {   
+    {
         if(!static::filter('updating')) return;
-
-        /*
-        * Gets the model's altered values and tracks what had changed
-        */
-        $changes = $model->getDirty();
-        /**
-         * Bypass restoring event
-         */
-        if(array_key_exists('deleted_at', $changes)) return;
-        
-        $changed = [];
-        foreach ($changes as $key => $value) {
-            if(static::isIgnored($model, $key)) continue;
-
-            array_push($changed, ['key' => $key, 'old' => $model->getOriginal($key), 'new' => $model->$key]);
-        }
 
         $model->morphMany(History::class, 'model')->create([
             'message' => trans('panoscape::history.updating', ['model' => static::getModelName($model), 'label' => $model->getModelLabel()]),
-            'meta' => $changed,
+            'meta' => $model->getModelMeta('updating'),
             'user_id' => static::getUserID(),
             'user_type' => static::getUserType(),
             'performed_at' => time(),
@@ -67,11 +52,12 @@ class HistoryObserver
     * @return void
     */
     public function deleting($model)
-    {   
+    {
         if(!static::filter('deleting')) return;
 
         $model->morphMany(History::class, 'model')->create([
             'message' => trans('panoscape::history.deleting', ['model' => static::getModelName($model), 'label' => $model->getModelLabel()]),
+            'meta' => $model->getModelMeta('deleting'),
             'user_id' => static::getUserID(),
             'user_type' => static::getUserType(),
             'performed_at' => time(),
@@ -85,11 +71,12 @@ class HistoryObserver
     * @return void
     */
     public function restored($model)
-    {   
+    {
         if(!static::filter('restored')) return;
 
         $model->morphMany(History::class, 'model')->create([
             'message' => trans('panoscape::history.restored', ['model' => static::getModelName($model), 'label' => $model->getModelLabel()]),
+            'meta' => $model->getModelMeta('restored'),
             'user_id' => static::getUserID(),
             'user_type' => static::getUserType(),
             'performed_at' => time(),
@@ -113,14 +100,6 @@ class HistoryObserver
     public static function getUserType()
     {
         return static::getAuth()->check() ? get_class(static::getAuth()->user()) : null;
-    }
-
-    public static function isIgnored($model, $key)
-    {
-        $blacklist = config('history.attributes_blacklist');
-        $name = get_class($model);
-        $array = isset($blacklist[$name])? $blacklist[$name]: null;
-        return !empty($array) && in_array($key, $array);
     }
 
     public static function filter($action)
@@ -158,5 +137,5 @@ class HistoryObserver
         }
         return null;
     }
-    
+
 }
