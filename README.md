@@ -326,10 +326,7 @@ class Article extends Model
 {
     use HasHistories;
 
-    public function getModelLabel()
-    {
-        return $this->display_name;
-    }
+    ...
     
     public function getModelMeta($event)
     {
