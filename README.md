@@ -322,13 +322,23 @@ Just redefine the method `getModelMeta` for the trait.
 Example:
 
 ```php
-public function getModelMeta($event)
+class Article extends Model
 {
-    // using defaults for updating
-    if($event == 'updating') return parent::getModelMeta($event);
-    // passing full model to meta
-    // ['key1' => 'value1', 'key2' => 'value2', ...]
-    else return $this;
+    use HasHistories;
+
+    public function getModelLabel()
+    {
+        return $this->display_name;
+    }
+    
+    public function getModelMeta($event)
+    {
+        // using defaults for updating
+        if($event == 'updating') return parent::getModelMeta($event);
+        // passing full model to meta
+        // ['key1' => 'value1', 'key2' => 'value2', ...]
+        else return $this;
+    }
 }
 ```
 
