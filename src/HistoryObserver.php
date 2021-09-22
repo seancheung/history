@@ -36,6 +36,15 @@ class HistoryObserver
     {
         if(!static::filter('updating')) return;
 
+        /*
+        * Gets the model's altered values and tracks what had changed
+        */
+        $changes = $model->getDirty();
+        /**
+         * Bypass restoring event
+         */
+        if(array_key_exists('deleted_at', $changes)) return;
+
         $model->morphMany(History::class, 'model')->create([
             'message' => trans('panoscape::history.updating', ['model' => static::getModelName($model), 'label' => $model->getModelLabel()]),
             'meta' => $model->getModelMeta('updating'),

@@ -52,10 +52,6 @@ trait HasHistories
                 * Gets the model's altered values and tracks what had changed
                 */
                 $changes = $this->getDirty();
-                /**
-                 * Bypass restoring event
-                 */
-                if(array_key_exists('deleted_at', $changes)) return;
 
                 $changed = [];
                 foreach ($changes as $key => $value) {
