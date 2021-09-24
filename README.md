@@ -324,17 +324,14 @@ Example:
 ```php
 class Article extends Model
 {
-    // if you want to use default trait method, you need to redeclair it with new name
-    use HasHistories {
-        getModelMeta as protected traitGetModelMeta;
-    };
+    use HasHistories;
 
     ...
     
     public function getModelMeta($event)
     {
         // using defaults for updating
-        if($event == 'updating') return $this->traitGetModelMeta($event);
+        if($event == 'updating') return parent::getModelMeta($event);
         // passing full model to meta
         // ['key1' => 'value1', 'key2' => 'value2', ...]
         else return $this;
