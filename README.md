@@ -324,7 +324,7 @@ Example:
 ```php
 class Article extends Model
 {
-    // if you want to use default trait method, you need to redeclair it with new name
+    // if you want to use default trait method, you need to redeclare it with a new name
     use HasHistories {
         getModelMeta as protected traitGetModelMeta;
     };
