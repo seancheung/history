@@ -15,7 +15,7 @@ Eloquent model history tracking for Laravel (NOW WITH AUTOLOAD!)
 
 ### Composer
 
-Laravel 6.x, 7.x, 8.x
+Laravel 6.x and above
 
 ```shell
 composer require panoscape/history
@@ -29,7 +29,7 @@ composer require "panoscape/history:^1.0"
 
 ### Service provider and alias
 
-> Only required for version 1.x
+> Only required for Laravel 5.6.x
 
 > NO NEED for version 2.0+ which is auto-loaded with [Package Discovery](https://laravel.com/docs/6.x/packages#package-discovery)
 
@@ -165,6 +165,10 @@ Example message
 
 ```
 Created Project my_project
+   │       │         │
+   │       │         └───── instance name(returned from `getModelLabel`)
+   │       └─────────────── model name(class name or localized name)
+   └─────────────────────── event name(default or localized name)
 ```
 
 Example meta
@@ -211,13 +215,13 @@ Example language config
 |
 */
 
-'created' => '创建:model :label',
+'created' => '创建:model:label',
 
-'updating' => '更新:model :label',
+'updating' => 'actualizar :model :label',
 
-'deleting' => '删除:model :label',
+'deleting' => ':model :label löschen',
 
-'restored' => '恢复:model :label',
+'restored' => ':model:labelを復元',
 
 //you may added your own model name language line here
 'models' => [
@@ -229,7 +233,7 @@ Example language config
 This will translate your model history into
 
 ```
-创建 项目 project_001
+创建项目project_001
 ```
 
 ### Filters
