@@ -3,6 +3,7 @@
 namespace Panoscape\History\Events;
 
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Database\Eloquent\Model;
 
 class ModelChanged
 {
