@@ -1,6 +1,5 @@
 <p align="center">
 <a href="https://github.com/seancheung/history/actions"><img src="https://github.com/seancheung/history/workflows/Test/badge.svg" alt="Test Status"></a>
-<a href="https://travis-ci.org/seancheung/history"><img src="https://travis-ci.org/seancheung/history.svg?branch=master" alt="Test Status"></a>
 <a href='https://coveralls.io/github/seancheung/history?branch=master'><img src='https://coveralls.io/repos/github/seancheung/history/badge.svg?branch=master' alt='Coverage Status' /></a>
 <a href="https://packagist.org/packages/panoscape/history"><img src="https://poser.pugx.org/panoscape/history/downloads" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/panoscape/history"><img src="https://poser.pugx.org/panoscape/history/v" alt="Latest Stable Version"></a>

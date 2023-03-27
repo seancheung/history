@@ -14,19 +14,13 @@ class History extends Model
     public $timestamps = false;
 
     /**
-    * The attributes that should be mutated to dates.
-    *
-    * @var array
-    */
-    protected $dates = ['performed_at'];
-
-    /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [
-        'meta' => 'array'
+        'meta' => 'array',
+        'performed_at' => 'datetime'
     ];
 
     /**
