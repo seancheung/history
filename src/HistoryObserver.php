@@ -44,10 +44,18 @@ class HistoryObserver
          * Bypass restoring event
          */
         if(array_key_exists('deleted_at', $changes)) return;
+        /**
+         * Get meta values that will be stored
+         */
+        $meta = $model->getModelMeta('updating');
+        /**
+         * Bypass updating event when meta is empty
+         */
+        if (!$meta) return;
 
         $model->morphMany(History::class, 'model')->create([
             'message' => trans('panoscape::history.updating', ['model' => static::getModelName($model), 'label' => $model->getModelLabel()]),
-            'meta' => $model->getModelMeta('updating'),
+            'meta' => $meta,
             'user_id' => static::getUserID(),
             'user_type' => static::getUserType(),
             'performed_at' => time(),
