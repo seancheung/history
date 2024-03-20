@@ -22,7 +22,7 @@ class HistoryObserver
             'meta' => $model->getModelMeta('created'),
             'user_id' => static::getUserID(),
             'user_type' => static::getUserType(),
-            'performed_at' => time(),
+            'performed_at' => now(),
         ]);
     }
 
@@ -58,7 +58,7 @@ class HistoryObserver
             'meta' => $meta,
             'user_id' => static::getUserID(),
             'user_type' => static::getUserType(),
-            'performed_at' => time(),
+            'performed_at' => now(),
         ]);
     }
 
@@ -77,7 +77,7 @@ class HistoryObserver
             'meta' => $model->getModelMeta('deleting'),
             'user_id' => static::getUserID(),
             'user_type' => static::getUserType(),
-            'performed_at' => time(),
+            'performed_at' => now(),
         ]);
     }
 
@@ -96,7 +96,7 @@ class HistoryObserver
             'meta' => $model->getModelMeta('restored'),
             'user_id' => static::getUserID(),
             'user_type' => static::getUserType(),
-            'performed_at' => time(),
+            'performed_at' => now(),
         ]);
     }
 

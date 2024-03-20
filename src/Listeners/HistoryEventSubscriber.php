@@ -23,7 +23,7 @@ class HistoryEventSubscriber
             'meta' => $event->meta,
             'user_id' => HistoryObserver::getUserID(),
             'user_type' => HistoryObserver::getUserType(),
-            'performed_at' => time(),
+            'performed_at' => now(),
         ]);
     }
 
