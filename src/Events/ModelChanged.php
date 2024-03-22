@@ -15,19 +15,23 @@ class ModelChanged
 
     public $meta;
 
+    public $trans;
+
     /**
      * Create a new event instance.
      *
      * @param  Model  $model
      * @param  string  $message
      * @param  array  $meta
+     * @param  string  $trans
      * 
      * @return void
      */
-    public function __construct($model, $message, $meta = null)
+    public function __construct($model, $message, $meta = null, $trans = null)
     {
         $this->model = $model;
         $this->message = $message;
         $this->meta = $meta;
+        $this->trans = $trans;
     }
 }

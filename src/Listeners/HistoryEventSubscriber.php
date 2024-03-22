@@ -18,8 +18,9 @@ class HistoryEventSubscriber
     {
         if(!HistoryObserver::filter(null)) return;
 
+        $message = $event->trans == null? $event->message : trans('panoscape::history.'.$event->trans, ['model' => static::getModelName($model), 'label' => $model->getModelLabel()]);
         $event->model->morphMany(History::class, 'model')->create([
-            'message' => $event->message,
+            'message' => $message,
             'meta' => $event->meta,
             'user_id' => HistoryObserver::getUserID(),
             'user_type' => HistoryObserver::getUserType(),

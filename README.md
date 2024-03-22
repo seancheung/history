@@ -180,7 +180,7 @@ Example meta
 
 ### Custom history
 
-Besides the built in `created/updating/deleting/restoring` events, you may store custom history record with `ModelChanged` event.
+Besides the built in `created/updating/deleting/restoring` events, you may track custom history record by firing an `ModelChanged` event.
 
 ```php
 use Panoscape\History\Events\ModelChanged;
@@ -190,7 +190,7 @@ use Panoscape\History\Events\ModelChanged;
 event(new ModelChanged($user, 'User roles updated', $user->roles()->pluck('id')->toArray()));
 ```
 
-The `ModelChanged` constructor accepts two/three arguments. The first is the associated model instance; the second is the message; the third is optional, which is the meta(array);
+The `ModelChanged` constructor accepts two/three/four arguments. The first is the associated model instance; the second is the message; the third is optional, which is the meta(array); the fourth is also optional, being the translation key of the event(see [Localization](#localization-1)).
 
 ### Localization
 
@@ -232,6 +232,22 @@ This will translate your model history into
 
 ```
 创建项目project_001
+```
+
+You can also translate custom history messages from `ModelChanged` events
+
+```php
+/*
+|--------------------------------------------------------------------------
+| Tracker Language Lines
+|--------------------------------------------------------------------------
+*/
+'switched_role' => ':model switched role',
+```
+
+```php
+// if you specified the translation key, the message argument will be ignored, simply just pass `null`
+event(new ModelChanged($user, null, $user->roles()->pluck('id')->toArray()), 'switched_role');
 ```
 
 ### Filters
