@@ -50,16 +50,17 @@ return [
 
     /*
     |--------------------------------------------------------------
-    | User blacklist
+    | User type blacklist
     |--------------------------------------------------------------
     |
-    | Operations performed by users in this array will NOT be recorded.
-    | Please add the whole class names. Example: \App\User:class
+    | Operations performed by user types in this array will NOT be recorded.
+    | Please add the whole class names. Example: \App\Admin:class
     | Use 'nobody' to bypass unauthenticated operations
     |
     */
     'user_blacklist' => [
-        
+        // \App\Admin:class,
+        // 'nobody'
     ],
 
     /*
@@ -91,12 +92,12 @@ return [
     |
     */
     'env_blacklist' => [
-        
+        // 'test'
     ],
 
     /*
     |--------------------------------------------------------------
-    | Enable auth guards scan
+    | Enable auth guards scanning
     |--------------------------------------------------------------
     |
     | You only need to enable this if your users are using non-default auth guards.

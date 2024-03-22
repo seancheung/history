@@ -8,7 +8,7 @@
 
 # History
 
-Eloquent model history tracking for Laravel (NOW WITH AUTOLOAD!)
+Eloquent model history tracking for Laravel
 
 ## Installation
 
@@ -29,8 +29,6 @@ composer require "panoscape/history:^1.0"
 ### Service provider and alias
 
 > Only required for Laravel 5.6.x
-
-> NO NEED for version 2.0+ which is auto-loaded with [Package Discovery](https://laravel.com/docs/6.x/packages#package-discovery)
 
 
 *config/app.php*
@@ -66,7 +64,7 @@ php artisan vendor:publish --provider="Panoscape\History\HistoryServiceProvider"
 
 ## Usage
 
-Add `HasOperations` trait to user model.
+Add `HasOperations` trait to user model that performs operations.
 
 ```php
 <?php
@@ -106,7 +104,7 @@ class Article extends Model
 ```
 
 Remember that you'll need to implement the abstract `getModelLabel` method from the trait.
-This provides the model instance's name in histories.
+This provides the model instance's display name in histories (as `Who` in `Who did what`).
 
 ### Get histories of a model
 
@@ -222,10 +220,11 @@ Example language config
 
 'restored' => ':model:labelを復元',
 
-//you may added your own model name language line here
+//you may add your own model name language line here
 'models' => [
     'project' => '项目',
     'component_template' => '组件模板',
+    // 'model_base_name_in_snake_case' => 'translation',
 ]
 ```
 
@@ -270,16 +269,17 @@ You may set whitelist and blacklist in config file. Please follow the descriptio
 
 /*
 |--------------------------------------------------------------
-| User blacklist
+| User type blacklist
 |--------------------------------------------------------------
 |
-| Operations performed by users in this array will NOT be recorded.
-| Please add the whole class names. Example: \App\User:class
+| Operations performed by user types in this array will NOT be recorded.
+| Please add the whole class names. Example: \App\Admin:class
 | Use 'nobody' to bypass unauthenticated operations
 |
 */
 'user_blacklist' => [
-    
+    // \App\Admin:class,
+    // 'nobody'
 ],
 /*
 |--------------------------------------------------------------
@@ -290,7 +290,7 @@ You may set whitelist and blacklist in config file. Please follow the descriptio
 |
 */
 'env_blacklist' => [
-    
+    // 'test'
 ],
 ```
 
@@ -303,7 +303,7 @@ To fix this, you'll need to enable custom auth guards scanning in config file:
 ```php
 /*
 |--------------------------------------------------------------
-| Enable auth guards scan
+| Enable auth guards scanning
 |--------------------------------------------------------------
 |
 | You only need to enable this if your users are using non-default auth guards.

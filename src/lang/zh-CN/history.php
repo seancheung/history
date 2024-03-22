@@ -21,8 +21,8 @@ return [
 
     'restored' => '恢复:model :label',
 
-    //you may added your own model name language line here
+    //you may add your own model name language line here
     'models' => [
-
+        // 'model_base_name_in_snake_case' => '翻译名称',
     ]
 ];
