@@ -18,7 +18,7 @@ jobs:
 
     strategy:
       matrix:
-        laravel-versions: ['12.0', ^6.0, ^7.0, ^8.0, ^9.0, ^10.0, ^11.0]
+        laravel-versions: [^6.0, ^7.0, ^8.0, ^9.0, ^10.0, ^11.0, ^12.0]
         php-versions: ['7.2', '7.3', '7.4', '8.0', '8.1', '8.2']
         exclude:
           - laravel-versions: ^6.0
@@ -55,15 +55,15 @@ jobs:
             php-versions: '8.0'
           - laravel-versions: ^11.0
             php-versions: '8.1'
-          - laravel-versions: '12.0'
+          - laravel-versions: ^12.0
             php-versions: '7.2'
-          - laravel-versions: '12.0'
+          - laravel-versions: ^12.0
             php-versions: '7.3'
-          - laravel-versions: '12.0'
+          - laravel-versions: ^12.0
             php-versions: '7.4'
-          - laravel-versions: '12.0'
+          - laravel-versions: ^12.0
             php-versions: '8.0'
-          - laravel-versions: '12.0'
+          - laravel-versions: ^12.0
             php-versions: '8.1'
 
     name: PHP ${{ matrix.php-versions }} with Laravel ${{ matrix.laravel-versions }}
