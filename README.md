@@ -14,7 +14,7 @@ Eloquent model history tracking for Laravel
 
 ### Composer
 
-Laravel 6.x and above
+Laravel 6.x and above (tested up to Laravel 13.x)
 
 ```shell
 composer require panoscape/history
@@ -40,7 +40,7 @@ composer require "panoscape/history:^1.0"
 ];
 'aliases' => [
     ...
-    'App\History' => Panoscape\History\History::class,
+    'History' => Panoscape\History\History::class,
 ];
 ```
 
@@ -180,7 +180,7 @@ Example meta
 
 ### Custom history
 
-Besides the built in `created/updating/deleting/restoring` events, you may track custom history record by firing an `ModelChanged` event.
+Besides the built in `created/updating/deleting/restored` events, you may track custom history record by firing an `ModelChanged` event.
 
 ```php
 use Panoscape\History\Events\ModelChanged;
@@ -247,7 +247,7 @@ You can also translate custom history messages from `ModelChanged` events
 
 ```php
 // if you specified the translation key, the message argument will be ignored, simply just pass `null`
-event(new ModelChanged($user, null, $user->roles()->pluck('id')->toArray()), 'switched_role');
+event(new ModelChanged($user, null, $user->roles()->pluck('id')->toArray(), 'switched_role'));
 ```
 
 ### Filters
@@ -309,6 +309,22 @@ You may set whitelist and blacklist in config file. Please follow the descriptio
 'env_blacklist' => [
     // 'test'
 ],
+```
+
+### Toggle tracking
+
+Tracking can be switched on or off globally and per runtime in the config file.
+
+```php
+// Master switch. Set to false to disable all tracking.
+'enabled' => true,
+
+// By default histories are NOT recorded when the application runs in console
+// (artisan commands, seeders, queue workers). Set to true to record them.
+'console_enabled' => false,
+
+// By default histories are NOT recorded while running tests. Set to true to record them.
+'test_enabled' => false,
 ```
 
 ### Auth guards

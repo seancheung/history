@@ -213,6 +213,25 @@ class TestCaseTest extends TestCase
         $this->assertEquals([$article->id], $history->meta);
     }
 
+    public function testCustomEventWithTranslation()
+    {
+        // Exercise the $trans path of ModelChanged: the message must be resolved
+        // from the translation key with the model/label placeholders filled in.
+        app('translator')->addLines(
+            ['history.switched_role' => ':model :label switched role'],
+            'en',
+            'panoscape'
+        );
+
+        $article = Article::create(['title' => 'foo bar']);
+        event(new ModelChanged($article, null, ['baz'], 'switched_role'));
+
+        $history = History::where('message', 'Article foo bar switched role')->first();
+        $this->assertNotNull($history);
+        $this->assertEquals($article->id, $history->model_id);
+        $this->assertEquals(['baz'], $history->meta);
+    }
+
     public function testMorphMapUserType()
     {
         // Alias the User model in the morph map; user_type should be stored as
