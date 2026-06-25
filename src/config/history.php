@@ -55,6 +55,7 @@ return [
     |
     | Operations performed by user types in this array will NOT be recorded.
     | Please add the whole class names. Example: \App\Admin:class
+    | Morph map aliases are also accepted. Example: 'admin'
     | Use 'nobody' to bypass unauthenticated operations
     |
     */

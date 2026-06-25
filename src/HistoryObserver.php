@@ -116,7 +116,9 @@ class HistoryObserver
 
     public static function getUserType()
     {
-        return static::getAuth()->check() ? get_class(static::getAuth()->user()) : null;
+        // Use getMorphClass() so the stored user_type honors any morph map alias,
+        // keeping it consistent with how History::user()'s morphTo() resolves it.
+        return static::getAuth()->check() ? static::getAuth()->user()->getMorphClass() : null;
     }
 
     public static function filter($action)
@@ -126,8 +128,14 @@ class HistoryObserver
                 return false;
             }
         }
-        elseif(in_array(get_class(static::getAuth()->user()), config('history.user_blacklist'))) {
-            return false;
+        else {
+            $user = static::getAuth()->user();
+            $blacklist = config('history.user_blacklist');
+            // Match either the fully-qualified class name or the morph map alias,
+            // so the blacklist works regardless of which form is configured.
+            if(in_array(get_class($user), $blacklist) || in_array($user->getMorphClass(), $blacklist)) {
+                return false;
+            }
         }
 
         return is_null($action) || in_array($action, config('history.events_whitelist'));

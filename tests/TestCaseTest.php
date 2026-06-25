@@ -4,6 +4,7 @@ namespace Panoscape\History\Tests;
 
 use Orchestra\Testbench\TestCase;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Panoscape\History\History;
@@ -210,6 +211,31 @@ class TestCaseTest extends TestCase
         $this->assertEquals($article->id, $history->model_id);
         $this->assertEquals('Query Article ' . $article->title, $history->message);
         $this->assertEquals([$article->id], $history->meta);
+    }
+
+    public function testMorphMapUserType()
+    {
+        // Alias the User model in the morph map; user_type should be stored as
+        // the alias and morphTo() must still resolve back to the User model.
+        Relation::morphMap(['user' => User::class]);
+
+        try {
+            $user = User::first();
+            $this->assertNotNull($user);
+
+            $content = ['title' => 'morph map alias'];
+            $this->actingAs($user)->json('POST', '/articles', $content)->assertJson($content);
+
+            $history = History::first();
+            $this->assertNotNull($history);
+            $this->assertEquals('user', $history->user_type);
+            $this->assertTrue($history->hasUser());
+            $this->assertNotNull($history->user());
+            $this->assertEquals($user->toJson(), $history->user()->toJson());
+        } finally {
+            // morphMap is global static state; reset it so other tests are unaffected.
+            Relation::morphMap([], false);
+        }
     }
 
     private function actingAsAdmin($admin) {
