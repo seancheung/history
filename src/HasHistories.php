@@ -35,7 +35,13 @@ trait HasHistories
             return;
         }
 
-        static::observe(HistoryObserver::class);
+        // Register the observer's event listeners directly instead of calling
+        // static::observe(), which instantiates the model (new static) and would
+        // re-enter bootIfNotBooted() while the model is still booting. Laravel 13
+        // turns that re-entrancy into a LogicException.
+        foreach (['created', 'updating', 'deleting', 'restored'] as $event) {
+            static::registerModelEvent($event, HistoryObserver::class.'@'.$event);
+        }
     }
 
     /**

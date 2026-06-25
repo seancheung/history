@@ -77,6 +77,36 @@ jobs:
             php-versions: '8.1'
           - laravel-versions: ^13.0
             php-versions: '8.2'
+          - laravel-versions: ^6.0
+            php-versions: '8.3'
+          - laravel-versions: ^6.0
+            php-versions: '8.4'
+          - laravel-versions: ^6.0
+            php-versions: '8.5'
+          - laravel-versions: ^7.0
+            php-versions: '8.3'
+          - laravel-versions: ^7.0
+            php-versions: '8.4'
+          - laravel-versions: ^7.0
+            php-versions: '8.5'
+          - laravel-versions: ^8.0
+            php-versions: '8.3'
+          - laravel-versions: ^8.0
+            php-versions: '8.4'
+          - laravel-versions: ^8.0
+            php-versions: '8.5'
+          - laravel-versions: ^9.0
+            php-versions: '8.3'
+          - laravel-versions: ^9.0
+            php-versions: '8.4'
+          - laravel-versions: ^9.0
+            php-versions: '8.5'
+          - laravel-versions: ^10.0
+            php-versions: '8.3'
+          - laravel-versions: ^10.0
+            php-versions: '8.4'
+          - laravel-versions: ^10.0
+            php-versions: '8.5'
 
     name: PHP ${{ matrix.php-versions }} with Laravel ${{ matrix.laravel-versions }}
 
